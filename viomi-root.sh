@@ -152,7 +152,7 @@ function install_dropbear() {
   adb shell opkg install /tmp/$filename
   adb push ~/.ssh/id_rsa.pub /etc/dropbear/authorized_keys
   adb shell chmod 0600 /etc/dropbear/authorized_keys
-  adb shell "sed -i \"/PasswordAuth/ s/'on'/'off'/\" /etc/config/dropbear"
+  #adb shell "sed -i \"/PasswordAuth/ s/'on'/'off'/\" /etc/config/dropbear"
   adb shell /etc/init.d/dropbear start
   echo "Setting local ssh alias vacuum to root@$ip."
   echo "You can use 'ssh vacuum' to connect to the robot from now on."
@@ -191,9 +191,9 @@ EOF
 }
 
 function install_valetudo() {
-  wget "https://github.com/Hypfer/Valetudo/releases/download/2021.03.0/valetudo-armv7" -O valetudo
+  wget "https://github.com/Hypfer/Valetudo/releases/download/2022.03.1/valetudo-armv7" -O valetudo
   chmod +x valetudo
-  echo "1c3e91b944fcbf80bb7508df3900059d851198a47fcd0abf6a439f1fda0086c4  valetudo" > valetudo.sha256
+  echo "7378d64cbc7f4988ba1a3dfb7ca9da2d057a44667b7e441f96ee26b9491ad9e1  valetudo" > valetudo.sha256
   sha256sum -c valetudo.sha256 || exit
   scp valetudo vacuum:/mnt/UDISK/
   ssh vacuum "cat >/etc/init.d/valetudo" <<EOF
